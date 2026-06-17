@@ -10,13 +10,13 @@
 
 #for catalogue module
 - name: Check catalogue entries count
-  ansible.builtin.shell: mongo --host mongodb.devopswitharun.online --quiet --eval 'db=db.getSiblingDB("catalogue"); db.products.count()'
+  ansible.builtin.shell: mongo --host {{MONGODB_HOST}} --quiet --eval 'db=db.getSiblingDB("catalogue"); db.products.count()'
   register: products_count
   when: component == "catalogue"
 
 #for user module
 - name: Check user entries count
-  ansible.builtin.command: mongo --host mongodb.devopswitharun.online --quiet --eval 'db.getSiblingDB("users"); db.users.count()'
+  ansible.builtin.command: mongo --host {{MONGODB_HOST}} --quiet --eval 'db.getSiblingDB("users"); db.users.count()'
   register: users_count
   when: component == "user"
 
@@ -31,9 +31,9 @@
   when: component == "user"
 
 - name: Load catalogue Data to MongoDB
-  ansible.builtin.shell: "mongo --host mongodb.devopswitharun.online < /app/schema/catalogue.js"
+  ansible.builtin.shell: "mongo --host {{MONGODB_HOST}} < /app/schema/catalogue.js"
   when: component == "catalogue" and products_count.stdout == "0"
 
 - name: Load user Data to MongoDB
-  ansible.builtin.shell: "mongo --host mongodb.devopswitharun.online < /app/schema/user.js"
+  ansible.builtin.shell: "mongo --host {{MONGODB_HOST}} < /app/schema/user.js"
   when: component == "user" and users_count.stdout == "0" 

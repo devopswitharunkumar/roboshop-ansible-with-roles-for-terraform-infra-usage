@@ -1,0 +1,61 @@
+- name: install nginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+  
+- name: Start and enable nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
+
+#1st way here html dir will be deleted and explicitly we have create new html dir   
+  # - name: remove default nginx web content
+  #   ansible.builtin.file:
+  #     path: /usr/share/nginx/html/*
+  #     state: absent
+  
+  # - name: create empty html directory
+  #   ansible.builtin.file:
+  #     path: /usr/share/nginx/html
+  #     state: directory
+#2nd way using command
+  # - name: remove default nginx content
+  # ansible.builtin.shell: rm -rf /usr/share/nginx/html/*
+
+#3nd way keep html dir and just delete files no need to create new html dir
+- name: find default nginx web content
+  ansible.builtin.find:
+    paths: /usr/share/nginx/html
+    file_type: any         #file,any etc
+  register: files_to_delete
+
+- name: Delete files found
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ files_to_delete.files }}"
+
+- name: Downloading web zip file
+  ansible.builtin.get_url:
+    url: https://roboshop-builds.s3.amazonaws.com/web.zip
+    dest: /tmp/web.zip
+
+- name: unarchive web zip file
+  ansible.builtin.unarchive:
+    src: /tmp/web.zip
+    dest: /usr/share/nginx/html/
+    remote_src: yes
+
+#without templates
+# - name: copying roboshop configuration file 
+#   ansible.builtin.template:
+#     src: roboshop.conf
+#     dest: /etc/nginx/default.d/roboshop.conf 
+
+- name: copying roboshop configuration file 
+  ansible.builtin.template:
+    src: roboshop.conf.j2
+    dest: /etc/nginx/default.d/roboshop.conf 
+  notify: Restart nginx
+
