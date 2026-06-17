@@ -14,24 +14,24 @@
   register: products_count
   when: component == "catalogue"
 
-# #for user module
-# - name: "Check {{component}} entries count"
-#   ansible.builtin.command: mongo --host mongodb.devopswitharun.online --quiet --eval 'db.getSiblingDB("users"); db.users.count()'
-#   register: users_count
-#   when: component == "user"
+#for user module
+- name: "Check {{component}} entries count"
+  ansible.builtin.command: mongo --host mongodb.devopswitharun.online --quiet --eval 'db.getSiblingDB("users"); db.users.count()'
+  register: users_count
+  when: component == "user"
 
 - name: Print entries count
   ansible.builtin.debug:
     msg: "products_count is : {{products_count}}"
 
-# - name: Print entries count
-#   ansible.builtin.debug:
-#     msg: "users_count is : {{users_count}}"
+- name: Print entries count
+  ansible.builtin.debug:
+    msg: "users_count is : {{users_count}}"
 
 - name: "Load {{component}} Data to MongoDB"
   ansible.builtin.shell: "mongo --host mongodb.devopswitharun.online < /app/schema/catalogue.js"
   when: products_count.stdout == "0" and component == "catalogue"
 
-# - name: "Load {{component}} Data to MongoDB"
-#   ansible.builtin.shell: "mongo --host mongodb.devopswitharun.online < /app/schema/user.js"
-#   when: users_count.stdout == "0" and component == "user"
+- name: "Load {{component}} Data to MongoDB"
+  ansible.builtin.shell: "mongo --host mongodb.devopswitharun.online < /app/schema/user.js"
+  when: users_count.stdout == "0" and component == "user"
