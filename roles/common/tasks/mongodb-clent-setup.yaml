@@ -32,8 +32,8 @@
 
 - name: Load catalogue Data to MongoDB
   ansible.builtin.shell: "mongo --host mongodb.devopswitharun.online < /app/schema/catalogue.js"
-  when: products_count.stdout == "0" and component == "catalogue"
+  when: component == "catalogue" and products_count.stdout == "0"
 
 - name: Load user Data to MongoDB
   ansible.builtin.shell: "mongo --host mongodb.devopswitharun.online < /app/schema/user.js"
-  when: users_count.stdout == "0" and component == "user"
+  when: component == "user" and users_count.stdout == "0" 
