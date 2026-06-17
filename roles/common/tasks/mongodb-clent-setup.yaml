@@ -23,7 +23,7 @@
 - name: Print catalogue entries count
   ansible.builtin.debug:
     msg: "products_count is : {{products_count}}"
-    when: component == "catalogue"
+  when: component == "catalogue"
 
 - name: Print user entries count
   ansible.builtin.debug:
