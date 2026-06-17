@@ -1,0 +1,2 @@
+shipping_version: 1.0 #lets say if we have 2.o we can always overwrite from command line or we can change here
+mysql_password: RoboShop@1
