@@ -1,0 +1,6 @@
+ansible_user: ec2-user
+ansible_password: DevOps321
+#all.yaml name i used because all modules i have same user and password  so all.yaml and inside inventory u have to give like 
+#[all] 
+#now go to linux terminal we already created a file so we cant use ansible-vault create it will tells already exist
+#we can do by using encrypt ansible-vault encrypt group_vars/all.yaml 
