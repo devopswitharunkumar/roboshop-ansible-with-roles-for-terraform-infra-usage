@@ -1,6 +1,8 @@
 ansible_user: ec2-user
 ansible_password: DevOps321
-#all.yaml name i used because all modules i have same user and password  so all.yaml and inside inventory u have to give like 
-#[all] 
-#now go to linux terminal we already created a file so we cant use ansible-vault create it will tells already exist
-#we can do by using encrypt ansible-vault encrypt group_vars/all.yaml 
+
+#all.yaml name i used because all modules i have same user and password  so all.yaml 
+#now go to linux terminal 1)we already created a file all.yaml in local with user and password and just encrypt (ansible-vault encrypt <filename>.yaml)  in linux terminal ec2 
+#or 2nd way u can create empty all.yaml in local and in linux first encrypt command and then edit the file with user name and password
+#so we already created a file in local all.yaml so we cant use ansible-vault create <filename>.yaml cmd it will tell already file exist ..if file not created just folder created we can use create command like below
+#if file created in local we can do by using encrypt ansible-vault encrypt group_vars/all.yaml and then if u want to edit anything u can use aansible-vault edit <filename>
