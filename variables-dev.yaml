@@ -21,6 +21,6 @@ MYSQL_HOST: mysql-dev.devopswitharun.online
 CATALOGUE_HOST: catalogue.app-alb-dev.devopswitharun.online
 USER_HOST: user.app-alb-dev.devopswitharun.online
 CART_HOST: cart.app-alb-dev.devopswitharun.online
-SHIPPING_HOST: shiping.app-alb-dev.devopswitharun.online
+SHIPPING_HOST: shipping.app-alb-dev.devopswitharun.online
 PAYMENT_HOST: payment.app-alb-dev.devopswitharun.online
 DISPATCH_HOST: dispatch.app-alb-dev.devopswitharun.online
