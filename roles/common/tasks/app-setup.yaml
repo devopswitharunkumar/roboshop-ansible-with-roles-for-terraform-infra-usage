@@ -12,22 +12,22 @@
     path: /app
     state: directory
 
-- name: "Downloading {{component}} Module Zip"
-  ansible.builtin.get_url:
-    url: "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
-    dest: "/tmp/{{component}}.zip"
+# - name: "Downloading {{component}} Module Zip"
+#   ansible.builtin.get_url:
+#     url: "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
+#     dest: "/tmp/{{component}}.zip"
 
 #using this because shipping.zip file is in my bucket so 
-# - name: "Downloading {{ component }} Module Zip"
-#   ansible.builtin.get_url:
-#     url: >-
-#       {{
-#         'https://shipping-data-sql-file.s3.us-east-1.amazonaws.com/shipping.zip'
-#         if component == 'shipping'
-#         else
-#         'https://roboshop-builds.s3.amazonaws.com/' ~ component ~ '.zip'
-#       }}
-#     dest: "/tmp/{{ component }}.zip"
+- name: "Downloading {{ component }} Module Zip"
+  ansible.builtin.get_url:
+    url: >-
+      {{
+        'https://shipping-data-sql-file.s3.us-east-1.amazonaws.com/shipping.zip'
+        if component == 'shipping'
+        else
+        'https://roboshop-builds.s3.amazonaws.com/' ~ component ~ '.zip'
+      }}
+    dest: "/tmp/{{ component }}.zip"
 
 - name: "Unarchive {{component}} Module"
   ansible.builtin.unarchive:
